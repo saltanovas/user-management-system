@@ -1,19 +1,23 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {# Run `composer require symfony/webpack-encore-bundle`
-           and uncomment the following Encore helpers to start using Symfony UX #}
+	<head>
+		<meta charset="UTF-8">
+		<title>
+			{% block title %}
+				Welcome!
+			{% endblock %}
+		</title>
         {% block stylesheets %}
-            {#{{ encore_entry_link_tags('app') }}#}
+            <link rel="stylesheet" href="/components/lib/bootstrap/css/bootstrap.min.css"/>
         {% endblock %}
-
         {% block javascripts %}
-            {#{{ encore_entry_script_tags('app') }}#}
-        {% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-    </body>
+			<script src="/components/lib/jquery/jquery-3.6.0.min.js"></script>
+		{% endblock %}
+	</head>
+	<body>
+		{{ include('shared/navbar.twig.html') }}
+		<div class="container"> 
+            {% block body %}{% endblock %}
+		</div>
+	</body>
 </html>
