@@ -27,7 +27,7 @@ class Group
     private $name;
 
     /**
-     * @ORM\ManyToMany(targetEntity=User::class, mappedBy="users")
+     * @ORM\ManyToMany(targetEntity=User::class, mappedBy="groups")
      */
     private $users;
 
@@ -60,16 +60,17 @@ class Group
         return $this->users;
     }
 
-    public function addUser(self $user): self
+    public function addUser(User $user)
     {
         if (!$this->users->contains($user)) {
-            $this->users[] = $user;
+            $this->getUsers()->add($user);
+            $user->addGroup($this);
         }
 
         return $this;
     }
 
-    public function removeUser(self $user): self
+    public function removeUser(User $user)
     {
         $this->users->removeElement($user);
 

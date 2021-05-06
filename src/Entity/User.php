@@ -55,21 +55,22 @@ class User
     /**
      * @return Collection|self[]
      */
-    public function getGroups(): Collection
+    public function getGroups()
     {
         return $this->groups;
     }
 
-    public function addGroup(self $group): self
+    public function addGroup(Group $group)
     {
         if (!$this->groups->contains($group)) {
             $this->groups[] = $group;
+            $group->addUser($this);
         }
 
         return $this;
     }
 
-    public function removeGroup(self $group): self
+    public function removeGroup(Group $group)
     {
         $this->groups->removeElement($group);
 
