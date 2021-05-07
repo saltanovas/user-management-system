@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Group;
 use App\Entity\User;
 use App\Form\UserFormType;
 use App\Repository\UserRepository;
@@ -51,17 +52,11 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/user/update/{userId}")
+     * @Route("/user/update/{user}")
      * @Method({"GET", "POST"})
      */
-    public function update(Request $request, $userId)
+    public function update(Request $request, User $user)
     {
-        $user = $this->userRepo->getById($userId);
-
-        if(is_null($user)){
-            return $this->redirectToRoute('list_user');
-        }
-
         $form = $this->createForm(UserFormType::class, $user);
         $form->handleRequest($request);
         
@@ -76,24 +71,24 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/user/delete/{userId}")
+     * @Route("/user/delete/{user}")
      * @Method({"DELETE"})
      */
-    public function deleteUser($userId)
+    public function deleteUser(User $user)
     {
-        $this->userRepo->delete($this->userRepo->getById($userId));
+        $this->userRepo->delete($user);
         $this->userRepo->save();
         
         return $this->redirectToRoute('list_user');
     }
 
     /**
-     * @Route("/user/delete/{userId}/{groupId}")
+     * @Route("/user/delete/{user}/{group}")
      * @Method({"DELETE"})
      */
-    public function deleteGroupFromUser($userId, $groupId)
+    public function deleteGroupFromUser(User $user, Group $group)
     {
-        $this->userRepo->removeGroupFromUser($userId, $groupId);
+        $this->userRepo->removeGroupFromUser($user, $group);
 
         return $this->redirectToRoute('list_user');
     }

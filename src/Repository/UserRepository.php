@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Group;
 use App\Entity\User;
 use App\Repository\Repository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -13,12 +14,8 @@ class UserRepository extends Repository
         parent::__construct($registry, User::class);
     }
 
-    public function removeGroupFromUser($userId, $groupId)
+    public function removeGroupFromUser(User $user, Group $group)
     {
-        // if I use Group or User, symfony cannot find such classes
-        $user = $this->_em->find('App\Entity\User', $userId);
-        $group = $this->_em->find('App\Entity\Group', $groupId);
-
         if (!is_null($group) && !is_null($user)) {
             $user->removeGroup($group);
             $group->removeUser($user);

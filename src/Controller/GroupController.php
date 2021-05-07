@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Group;
+use App\Entity\User;
 use App\Form\GroupFormType;
 use App\Repository\GroupRepository;
 use Symfony\Component\Routing\Annotation\Route;
@@ -51,17 +52,11 @@ class GroupController extends AbstractController
     }
 
     /**
-     * @Route("/group/update/{groupId}", name="update_group")
+     * @Route("/group/update/{group}", name="update_group")
      * @Method({"GET", "POST"})
      */
-    public function update(Request $request, $groupId)
+    public function update(Request $request, Group $group)
     {
-        $group = $this->groupRepo->getById($groupId);
-
-        if(is_null($group)){
-            return $this->redirectToRoute('list_group');
-        }
-
         $form = $this->createForm(GroupFormType::class, $group);
         $form->handleRequest($request);
 
@@ -76,13 +71,11 @@ class GroupController extends AbstractController
     }
 
     /**
-     * @Route("/group/delete/{groupId}", name="delete_group")
+     * @Route("/group/delete/{group}", name="delete_group")
      * @Method({"DELETE"})
      */
-    public function deleteGroup($groupId)
+    public function deleteGroup(Group $group)
     {
-        $group = $this->groupRepo->getById($groupId);
-
         if(count($group->getUsers()) == 0){
             $this->groupRepo->delete($group);
             $this->groupRepo->save();
@@ -92,12 +85,12 @@ class GroupController extends AbstractController
     }
 
     /**
-     * @Route("/group/delete/{groupId}/{userId}")
+     * @Route("/group/delete/{group}/{user}")
      * @Method({"DELETE"})
      */
-    public function deleteUserFromGroup($groupId, $userId)
+    public function deleteUserFromGroup(Group $group, User $user)
     {
-        $this->groupRepo->removeUser($groupId, $userId);
+        $this->groupRepo->removeUser($group, $user);
 
         return $this->redirectToRoute('list_group');
     }
