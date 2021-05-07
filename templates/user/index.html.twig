@@ -30,11 +30,6 @@
 								</a>
 							</li>
 							<li class="list-inline-item">
-								<a class="btn-sm btn-primary" onclick="openModal()">
-									<i class="fa fa-plus-square"> Assign To Group</i>
-								</a>
-							</li>
-							<li class="list-inline-item">
 								<a class="btn-sm btn-danger" href="/user/delete/{{user.id}}">
 									<i class="fa fa-trash-alt"> Delete</i>
 								</a>
@@ -69,32 +64,4 @@
 			{% endfor %}
 		</tbody>
 	</table>
-
-	<!-- Modal -->
-	<div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title"></h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body"></div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary">Save changes</button>
-				</div>
-			</div>
-		</div>
-	</div>
-{% endblock %}
-
-{% block scripts %}
-<script>
-    function openModal(group){
-        console.log(group);
-    	$('#userModal').modal('toggle');
-    }
-</script>
 {% endblock %}
