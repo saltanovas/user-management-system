@@ -19,12 +19,12 @@ class UserRepository extends Repository
         $user = $this->_em->find('App\Entity\User', $userId);
         $group = $this->_em->find('App\Entity\Group', $groupId);
 
-        $user->removeGroup($group);
-        $group->removeUser($user);
+        if (!is_null($group) && !is_null($user)) {
+            $user->removeGroup($group);
+            $group->removeUser($user);
 
-        $this->insert($group);
-        $this->save();
-
-        //TODO: need some return to check whether remove was successful?
+            $this->insert($group);
+            $this->save();
+        }
     }
 }

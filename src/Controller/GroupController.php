@@ -56,7 +56,13 @@ class GroupController extends AbstractController
      */
     public function update(Request $request, $groupId)
     {
-        $form = $this->createForm(GroupFormType::class, $this->groupRepo->getById($groupId));
+        $group = $this->groupRepo->getById($groupId);
+
+        if(is_null($group)){
+            return $this->redirectToRoute('list_group');
+        }
+
+        $form = $this->createForm(GroupFormType::class, $group);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -75,8 +81,12 @@ class GroupController extends AbstractController
      */
     public function deleteGroup($groupId)
     {
-        $this->groupRepo->delete($this->groupRepo->getById($groupId));
-        $this->groupRepo->save();
+        $group = $this->groupRepo->getById($groupId);
+
+        if(count($group->getUsers()) == 0){
+            $this->groupRepo->delete($group);
+            $this->groupRepo->save();
+        }
 
         return $this->redirectToRoute('list_group');
     }
