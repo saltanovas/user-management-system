@@ -7,17 +7,28 @@
 				Welcome!
 			{% endblock %}
 		</title>
-        {% block stylesheets %}
-            <link rel="stylesheet" href="/components/lib/bootstrap/css/bootstrap.min.css"/>
-        {% endblock %}
-        {% block javascripts %}
-			<script src="/components/lib/jquery/jquery-3.6.0.min.js"></script>
+
+		{% block stylesheets %}
+			<link rel="stylesheet" href="/components/lib/bootstrap/css/bootstrap.min.css"/>
+			<link rel="stylesheet" href="/components/css/main.css">
+			<link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css">
+			<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
 		{% endblock %}
+
+		{% block javascripts %}
+			<script src="/components/lib/jquery/jquery-3.6.0.min.js"></script>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+			<script src="/components/lib/bootstrap/js/bootstrap.min.js"></script>
+			<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+		{% endblock %}
+
 	</head>
 	<body>
-		{{ include('shared/navbar.twig.html') }}
+		{{ include('shared/navbar.html.twig') }}
 		<div class="container"> 
-            {% block body %}{% endblock %}
+		{% block body %}{% endblock %}
 		</div>
+		<script src="/components/js/main.js"></script>
+		{% block scripts %}{% endblock %}
 	</body>
 </html>
