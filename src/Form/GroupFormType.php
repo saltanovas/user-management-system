@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\User;
 use App\Entity\Group;
+use App\Repository\UserRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -42,6 +43,9 @@ class GroupFormType extends AbstractType
                         'data-size' => '7'
                     ],
                     'class' => User::class,
+                    'query_builder' => function(UserRepository $repository) { 
+                        return $repository->createQueryBuilder('u')->orderBy('u.name', 'ASC');
+                    },
                     'required' => false,
                     'by_reference' => false, //this one is important!!!
                     'multiple' => true,
