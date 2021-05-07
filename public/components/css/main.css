@@ -1,7 +1,12 @@
-.table-hover.no-hover{
+.no-hover{
       background-color: transparent !important;
   }
 
 .fa {
     cursor:pointer;
+}
+
+.close {
+    color: rgb(0, 0, 0); 
+    opacity: 1;
 }
