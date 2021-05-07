@@ -1,0 +1,7 @@
+.table-hover.no-hover{
+      background-color: transparent !important;
+  }
+
+.fa {
+    cursor:pointer;
+}
