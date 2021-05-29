@@ -21,7 +21,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/user", name="list_user")
+     * @Route("/api/users", name="get_users")
      * @Method({"GET"})
      */
     public function index()
@@ -33,7 +33,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/user/create", name="create_user")
+     * @Route("/api/user", name="post_user")
      * @Method({"GET", "POST"})
      */
     public function create(Request $request)
@@ -45,15 +45,15 @@ class UserController extends AbstractController
             $this->userRepo->insert($form->getData());
             $this->userRepo->save();
 
-            return $this->redirectToRoute('list_user');
+            return $this->redirectToRoute('get_users');
         }
 
         return $this->render('user/create.html.twig', array('form' => $form->createView()));
     }
 
     /**
-     * @Route("/user/update/{user}")
-     * @Method({"GET", "POST"})
+     * @Route("/api/user/{user}", name="put_user")
+     * @Method({"PUT"})
      */
     public function update(Request $request, User $user)
     {
@@ -64,14 +64,14 @@ class UserController extends AbstractController
             $this->userRepo->insert($form->getData());
             $this->userRepo->save();
 
-            return $this->redirectToRoute('list_user');
+            return $this->redirectToRoute('get_users');
         }
 
         return $this->render('user/create.html.twig', array('form' => $form->createView()));
     }
 
     /**
-     * @Route("/user/delete/{user}")
+     * @Route("/api/user/{user}", name="delete_user")
      * @Method({"DELETE"})
      */
     public function deleteUser(User $user)
@@ -79,17 +79,17 @@ class UserController extends AbstractController
         $this->userRepo->delete($user);
         $this->userRepo->save();
         
-        return $this->redirectToRoute('list_user');
+        return $this->redirectToRoute('get_users');
     }
 
     /**
-     * @Route("/user/delete/{user}/{group}")
+     * @Route("/api/user/{user}/{group}", name="delete_group_from_user")
      * @Method({"DELETE"})
      */
     public function deleteGroupFromUser(User $user, Group $group)
     {
         $this->userRepo->removeGroupFromUser($user, $group);
 
-        return $this->redirectToRoute('list_user');
+        return $this->redirectToRoute('get_users');
     }
 }

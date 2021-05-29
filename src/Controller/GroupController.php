@@ -21,7 +21,7 @@ class GroupController extends AbstractController
     }
 
     /**
-     * @Route("/group", name="list_group")
+     * @Route("/api/groups", name="get_groups")
      * @Method({"GET"})
      */
     public function index()
@@ -33,7 +33,7 @@ class GroupController extends AbstractController
     }
 
     /**
-     * @Route("/group/create", name="create_group")
+     * @Route("/api/group", name="create_group")
      * @Method({"GET", "POST"})
      */
     public function create(Request $request)
@@ -45,15 +45,15 @@ class GroupController extends AbstractController
             $this->groupRepo->insert($form->getData());
             $this->groupRepo->save();
 
-            return $this->redirectToRoute('list_group');
+            return $this->redirectToRoute('get_groups');
         }
 
         return $this->render('group/create.html.twig', array('form' => $form->createView()));
     }
 
     /**
-     * @Route("/group/update/{group}", name="update_group")
-     * @Method({"GET", "POST"})
+     * @Route("/api/group/{group}", name="put_group")
+     * @Method({"PUT"})
      */
     public function update(Request $request, Group $group)
     {
@@ -64,14 +64,14 @@ class GroupController extends AbstractController
             $this->groupRepo->insert($form->getData());
             $this->groupRepo->save();
 
-            return $this->redirectToRoute('list_group');
+            return $this->redirectToRoute('get_groups');
         }
 
         return $this->render('group/create.html.twig', array('form' => $form->createView()));
     }
 
     /**
-     * @Route("/group/delete/{group}", name="delete_group")
+     * @Route("/api/group/{group}", name="delete_group")
      * @Method({"DELETE"})
      */
     public function deleteGroup(Group $group)
@@ -81,17 +81,17 @@ class GroupController extends AbstractController
             $this->groupRepo->save();
         }
 
-        return $this->redirectToRoute('list_group');
+        return $this->redirectToRoute('get_groups');
     }
 
     /**
-     * @Route("/group/delete/{group}/{user}")
+     * @Route("/api/group/{group}/{user}", name="delete_user_from_group")
      * @Method({"DELETE"})
      */
     public function deleteUserFromGroup(Group $group, User $user)
     {
         $this->groupRepo->removeUser($group, $user);
 
-        return $this->redirectToRoute('list_group');
+        return $this->redirectToRoute('get_groups');
     }
 }
